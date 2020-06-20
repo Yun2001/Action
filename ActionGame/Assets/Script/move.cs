@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class char_move : MonoBehaviour {
+public class move : MonoBehaviour {
 
     private CharacterController characterController;
     private Vector3 velocity;
@@ -15,6 +15,8 @@ public class char_move : MonoBehaviour {
     public float forwardSpeed = 3.0f;
     // 後退速度
     public float backwardSpeed = 3.0f;
+    // 旋回速度
+    public float rotateSpeed = 2.0f;
 
     // Use this for initialization
     void Start()
@@ -30,6 +32,7 @@ public class char_move : MonoBehaviour {
 
         float h = Input.GetAxis("Horizontal");              // 入力デバイスの水平軸をhで定義
         float v = Input.GetAxis("Vertical");                // 入力デバイスの垂直軸をvで定義
+        float r = Input.GetAxis("CameraHorizontal");              // 入力デバイスの水平軸をhで定義
 
 
         // 以下、キャラクターの移動処理
@@ -49,17 +52,8 @@ public class char_move : MonoBehaviour {
         // 移動キー入力でキャラクターを移動させる
         transform.localPosition += velocity * Time.fixedDeltaTime;
 
+        // 左右のキー入力でキャラクタをY軸で旋回させる
+        transform.Rotate(0, r * rotateSpeed, 0);
 
-
-
-        //ジャンプ
-        //進む向き
-        //
-        //if (characterController.isGrounded)
-        //{
-        //    velocity = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        //}
-        //velocity.y += Physics.gravity.y * Time.deltaTime;
-        //characterController.Move(velocity * walkSpeed * Time.deltaTime);
     }
 }
